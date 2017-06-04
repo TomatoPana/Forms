@@ -24,7 +24,7 @@
                                  <p:outputLabel>Formularios de Coco</p:outputLabel>
                             </div>
                             <div class="ui-g-9">
-                                <p:commandButton value="Iniciar Sesión" actionListener="#{RoutingBean.SignIn}" ajax="false"></p:commandButton>
+                                <p:commandButton value="Iniciar Sesión" action="#{LogInController.login}" ajax="false"></p:commandButton>
                                 <p:commandButton value="Registrarse" actionListener="#{RoutingBean.SignUp}" ajax="false"></p:commandButton>
                             </div>
                         </h:form>

@@ -6,6 +6,8 @@
 package Beans;
 
 import Database.User;
+import java.util.Collection;
+import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -14,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 
@@ -22,10 +25,24 @@ import javax.persistence.TypedQuery;
 public class LogInController {
 
     private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
     private String password;
 
-    @EJB
-    
 
     public String login() {
         EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Eclipselink_JPA" );
@@ -33,9 +50,11 @@ public class LogInController {
 
         User user = new User();
         FacesContext context = FacesContext.getCurrentInstance();
-        TypedQuery<User> query =
-            em.createNamedQuery("Country.findAll", Country.class);
-        List<Country> results = query.getResultList();
+        Query query =
+            entitymanager.createNamedQuery("User.findLogin", User.class);
+        query.setParameter("pass", 123);
+        query.setParameter("email", "lima");
+        Collection<User> results = query.getResultList();
         if (user == null) {
             context.addMessage(null, new FacesMessage("Unknown login, try again"));
             username = null;
